@@ -60,7 +60,9 @@ found: python3 at /usr/bin/python3
 - The initial reviewer submission was accepted as progress, not as a solve; the marked page must remain unchanged pending review and separate replacement approval. · source: ../claim-01-reply.json:4-6; human · how: read
 
 - The initial marked preview was deployed to the approved GitHub Pages URL, anonymously verified byte-for-byte against the local HTTP capture, and its temporary deployment artifact deleted. · source: KEEP.md:Receipts/Initial public preview · how: ran
-- Issues #1-#6 are closed with one correctly formatted worker comment each and every referenced commit on main; #7 remains open pending review and separate replacement approval. · source: KEEP.md:Receipts/Preview issue closure audit · how: ran
+- The pre-review audit found six closed issues, but the course subsequently rejected the preview because #6 was closed before review; that closure was premature. · source: KEEP.md:Receipts/Preview issue closure audit; ../review-followup.jsonl:2 · how: read
+- The preview worker reopened #6, preserved its original closing comment and verified the marked public page was unchanged; #6 must remain open until explicit review acceptance. · source: ../worker-6-preview/KEEP.md:67-68,307-326 · how: read
+- Resubmission after reopening #6 was accepted as progress and sent to the reviewer again; the challenge is still not solved. · source: ../review-followup.jsonl:3 · how: read
 
 ## Receipts
 
