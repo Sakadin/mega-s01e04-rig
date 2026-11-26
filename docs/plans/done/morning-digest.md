@@ -1,6 +1,6 @@
 ---
 plan: morning-digest
-status: ready
+status: done
 owner: rook
 opened: 2026-10-29
 ---
@@ -90,20 +90,34 @@ Done when: the preview link no longer shows the lane marker.
 | 3. Preview for review | [#6 Publish and send the review preview](https://github.com/Sakadin/mega-s01e04-rig/issues/6) |
 | 4. Clean up | [#7 Remove the marker and archive the plan](https://github.com/Sakadin/mega-s01e04-rig/issues/7) |
 
-## Completion gate
+## Completion
 
-This archive is prepared on the cleanup worker branch; its location does not mean
-the plan is finished. The original requirements above are preserved, and `status`
-remains `ready` until main independently verifies public cleanup and integrates
-the archive. Submission alone did not satisfy the review gate for #6; the course
-required the reviewer to have seen the page. See [the preview guide](../../preview.md)
-and the sourced review/approval findings in [KEEP.md](../../../KEEP.md).
+Public cleanup is complete. Main published the marker-free replacement, and main
+and the cleanup worker independently verified the unchanged public URL. The original
+requirements above are preserved apart from `status: ready` becoming `status: done`.
+See [the preview guide](../../preview.md) and the sourced findings and exact worker
+verification output in [KEEP.md](../../../KEEP.md).
 
 - [x] The course confirmed that the reviewer has seen the marked preview.
 - [x] The human separately approved a marker-free replacement at the existing URL.
-- [ ] Main publishes the clean replacement at that same URL and independently
-  verifies an anonymous HTTPS response has `no marker set`, no lane marker and the
-  unchanged sample digest; the deployment run retains zero artifacts.
-- [ ] Main records the verification evidence, integrates this archive and changes
-  `status` to `done` only after the public gate holds. #7 stays open until its full
-  Done when holds; #6 remains the original preview worker's responsibility.
+- [x] Main published the clean replacement over the same public URL.
+- [x] Independent anonymous HTTPS checks confirmed `no marker set`, no original lane
+  marker and the unchanged sample digest; the deployment run retains zero artifacts.
+- [x] The plan is archived with all seven actual issue URLs and marked `done` after
+  the public cleanup gate passed.
+
+### Public verification
+
+- URL: <https://sakadin.github.io/mega-s01e04-rig/>
+- Deployment: [successful run 45807100697](https://github.com/Sakadin/mega-s01e04-rig/actions/runs/45807100697);
+  clean capture succeeded, marked capture skipped, zero retained artifacts.
+- Anonymous HTTP 200; exact local/public byte match, 2206 bytes.
+- SHA-256: `fe0757eead4dd94fe0e5dba0b4a74b51a36a6cd9642982cedc07f5599ef46011`.
+- Five sample jobs, one bad line, retry/fail warnings and no client scripts verified.
+
+Submission alone did not satisfy #6's review gate. The original preview worker
+closed it only after the reviewer-seen confirmation and preserved its original
+closing comment; see [the review-gate follow-up](https://github.com/Sakadin/mega-s01e04-rig/issues/6#issuecomment-7190224514).
+#7 remains open until this final archive commit is integrated and published on main,
+then receives the required closing comment. Final course acceptance is not a
+prerequisite for marking the plan done.

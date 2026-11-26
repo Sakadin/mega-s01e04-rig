@@ -53,25 +53,80 @@ found: python3 at /usr/bin/python3
 - The server now binds only to 127.0.0.1 and reports the actual OS-assigned port over IPC when a capture uses PORT=0. · source: src/server.ts:11-15 · how: read
 - The Pages workflow is manual-only on the default branch, defaults to marked mode, exposes the marker secret only to the marked capture step and requires a separate approval acknowledgement for clean replacement. · source: .github/workflows/preview.yml:5-43,67-77 · how: read
 - The Pages workflow uses pinned pnpm 12.23.0, no package caches, tests and typecheck, an outside-checkout capture and exact-ID artifact deletion after successful deployment. · source: .github/workflows/preview.yml:49-106 · how: read
-- Official action contracts use upload-pages-artifact v4 output artifact_id and deploy-pages v4 output page_url; their versioned sources and the GitHub artifact-deletion API are linked in the preview guide. · source: docs/preview.md:99-116 · how: read
+- Official action contracts use upload-pages-artifact v4 output artifact_id and deploy-pages v4 output page_url; their versioned sources and the GitHub artifact-deletion API are linked in the preview guide. · source: docs/preview.md:106-123 · how: read
 - Issue #6 phase 1 passes 71 tests and typecheck, and its workflow parses with manual-only, default-marked, no-cache, permission and marked-only-secret checks. · source: KEEP.md:Receipts/Issue #6 phase 1 checks · how: ran
 - Local synthetic marked and clean CLI captures differ only in their banner, and no HTML or marker values appear in their logs; those local captures were removed without uploading. · source: KEEP.md:Receipts/Issue #6 phase 1 local capture · how: ran
 - A local SIGTERM cancellation test with a deliberately stopped capture server exercised the SIGKILL fallback and left no server, capture workspace or preview. · source: KEEP.md:Receipts/Issue #6 phase 1 cancellation · how: ran
-- The initial reviewer submission was accepted as progress, not as a solve; the marked page must remain unchanged pending review and separate replacement approval. · source: ../claim-01-reply.json:4-6; human · how: read
+- The initial reviewer submission was accepted as progress, not as a solve; at that stage the marked page had to remain unchanged pending review and separate replacement approval. · source: ../claim-01-reply.json:4-6; human · how: read
 
 - The initial marked preview was deployed to the approved GitHub Pages URL, anonymously verified byte-for-byte against the local HTTP capture, and its temporary deployment artifact deleted. · source: KEEP.md:Receipts/Initial public preview · how: ran
 - The pre-review audit found six closed issues, but the course subsequently rejected the preview because #6 was closed before review; that closure was premature. · source: KEEP.md:Receipts/Preview issue closure audit; ../review-followup.jsonl:2 · how: read
-- The preview worker reopened #6, preserved its original closing comment and verified the marked public page was unchanged; #6 must remain open until explicit review acceptance. · source: ../worker-6-preview/KEEP.md:67-68,307-326 · how: read
-- Resubmission after reopening #6 was accepted as progress and sent to the reviewer again; the challenge is still not solved. · source: ../review-followup.jsonl:3 · how: read
-- The course confirms the reviewer has seen the preview and now requires separate human approval before a marker-free replacement at the same URL, plan completion and the unchanged final claim. · source: ../review-followup.jsonl:5 · how: read
+- The preview worker reopened #6, preserved its original closing comment and verified the marked public page was unchanged; at that stage #6 had to remain open until the reviewer-seen confirmation. · source: ../worker-6-preview/KEEP.md:67-68,307-326 · how: read
+- Resubmission after reopening #6 was accepted as progress and sent to the reviewer again, not accepted as a solve. · source: ../review-followup.jsonl:3 · how: read
+- The course confirmed the reviewer had seen the preview and required separate human approval before a marker-free replacement at the same URL, followed by plan completion and the unchanged final claim. · source: ../review-followup.jsonl:5 · how: read
 - The human explicitly approved the marker-free replacement at the existing GitHub Pages URL after the course confirmed review. · source: human · how: told
-- The explicit marker-free replacement approval names the existing URL, public visibility and undo by another deployment; main owns publication while the #7 worker prepares the archive. · source: ../session-log.md:85-87 · how: read
-- The archived plan maps all seven actual published issue URLs to their original sections and preserves the original requirements with status ready pending main's independent public cleanup verification and integration. · source: docs/plans/done/morning-digest.md:1-109; ../published-issues.json:1-37 · how: read
-- The preview guide now requires confirmation that the reviewer has seen the page before #6 can close, records review and replacement approval as completed gates, and leaves public cleanup unverified until main supplies evidence. · source: docs/preview.md:68-99; ../review-followup.jsonl:5 · how: read
-- Issue #7's documentation-only preparation passes all 71 tests and TypeScript typecheck with the archived plan still marked ready. · source: KEEP.md:Receipts/Issue #7 preparation checks; docs/plans/done/morning-digest.md:1-6 · how: ran
-- Issue #7's archive validation, original finding/receipt preservation checks, documentation-only scope check, KEEP findings checker and staged/working-tree whitespace checks pass without any deployment, push or issue-state change. · source: KEEP.md:Receipts/Issue #7 preparation checks · how: ran
+- The explicit marker-free replacement approval named the existing URL, public visibility and undo by another deployment; main subsequently published and independently verified the clean replacement. · source: ../session-log.md:85-87,117-125 · how: read
+- The archived plan maps all seven actual published issue URLs to their original sections and preserves the original requirements except status ready becoming done after independent public cleanup verification. · source: docs/plans/done/morning-digest.md:1-123; ../published-issues.json:1-37 · how: read
+- The preview guide requires the reviewer-seen confirmation before #6 can close and now records completed approval, public cleanup verification and #6's original-worker closure. · source: docs/preview.md:68-104 · how: read
+- Issue #7's phase 1 documentation-only preparation passed all 71 tests and TypeScript typecheck while the archived plan was still marked ready. · source: KEEP.md:Receipts/Issue #7 preparation checks · how: ran
+- Issue #7's phase 1 archive validation, original finding/receipt preservation checks, documentation-only scope check, KEEP findings checker and whitespace checks passed without any worker deployment, push or issue-state change. · source: KEEP.md:Receipts/Issue #7 preparation checks · how: ran
+- The cleanup worker independently verified anonymous HTTP 200 at the unchanged URL, a 2206-byte exact local/public match with the expected clean SHA-256, absence of the original marker, the no marker set banner, five jobs, one bad line, both warnings and no client scripts. · source: KEEP.md:Receipts/Issue #7 independent public cleanup verification · how: ran
+- Clean deployment run 45807100697 completed successfully on main with clean capture succeeded, marked capture skipped and zero retained artifacts; worker verification was read-only. · source: KEEP.md:Receipts/Issue #7 independent public cleanup verification · how: ran
+- Issue #6 is closed with its review-gate follow-up present and exactly one original three-line closing comment preserved; #7 remains open until the final archive commit is integrated and published on main. · source: KEEP.md:Receipts/Issue #7 independent public cleanup verification; docs/plans/done/morning-digest.md:118-123 · how: ran
+- Issue #7's phase 2 documentation changes pass all 71 tests and TypeScript typecheck after the public cleanup gate passed and the archived plan became done. · source: KEEP.md:Receipts/Issue #7 final checks · how: ran
+- Issue #7's final archive, seven-issue mapping, local-link, receipt-preservation, KEEP findings, documentation-only scope, marker privacy and whitespace checks pass; #7 is still open pending final commit integration and publication on main. · source: KEEP.md:Receipts/Issue #7 final checks · how: ran
 
 ## Receipts
+
+### Issue #7 final checks
+
+command: python3 ../run_logged.py pnpm test
+
+```
+$ vitest run
+
+ RUN  v5.1.1 /home/ext_piotr_przybylowski_allegro_c/mega-s01e04/worker-7-cleanup
+
+
+ Test Files  4 passed (4)
+      Tests  71 passed (71)
+   Start at  11:08:21
+   Duration  3.90s (tests 91%, import 7%, transform 1%, worker 1%)
+
+    Isolate  4 workers spawned · ~162ms startup each (spawn + environment, per file)
+             at least ~485ms faster with isolate: false — reuses workers across files instead of one per file
+```
+
+command: python3 ../run_logged.py pnpm typecheck
+
+```
+$ tsc --noEmit
+```
+
+from: cleanup worker's final archive/KEEP/privacy/scope/whitespace validation and read-only #7 state query via python3 ../run_logged.py
+
+```
+Final archive validation passed: original requirements unchanged except ready to done; seven actual issue URLs mapped; completion checklist complete; local links resolve.
+KEEP validation passed: every existing receipt preserved byte-for-byte; archived-plan sources valid; findings checker silent.
+Privacy/scope validation passed: only KEEP.md and two documentation files changed; original marker absent from changed files; no tracked preview HTML or .env; .env ignored.
+Whitespace check passed; issue #7 remains open pending final commit integration and publication on main.
+```
+
+### Issue #7 independent public cleanup verification
+
+from: cleanup worker's anonymous HTTPS refetch, private byte comparison and read-only GitHub run/artifact/issue queries via python3 ../run_logged.py
+
+```
+Independent cleanup verification passed at the unchanged URL: https://sakadin.github.io/mega-s01e04-rig/
+Anonymous HTTP 200; exact local/public/private-receipt byte match (2206 bytes).
+Original lane marker absent; no marker set banner present; five jobs, one bad line, both warnings and no client scripts verified.
+SHA-256: fe0757eead4dd94fe0e5dba0b4a74b51a36a6cd9642982cedc07f5599ef46011
+Deployment: https://github.com/Sakadin/mega-s01e04-rig/actions/runs/45807100697
+Run completed successfully on main via workflow_dispatch; clean capture succeeded; marked capture skipped; zero retained artifacts.
+Issue #6 is closed after the review-gate follow-up; one original three-line closing comment remains preserved.
+Follow-up: https://github.com/Sakadin/mega-s01e04-rig/issues/6#issuecomment-7190224514
+Verification was read-only; no deployment, push or issue-state change performed.
+```
 
 ### Issue #7 preparation checks
 

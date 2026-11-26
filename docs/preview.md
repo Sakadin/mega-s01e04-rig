@@ -29,7 +29,7 @@ the checkout, symlinked parents pointing inside it, existing files and final-com
 symlinks are refused. Nothing is written to `runs/` or the checkout's heartbeat directory.
 Inherited `PORT`, `NODE_OPTIONS` and unrelated secrets are not passed to the server.
 
-For a **local test** of the later marker-free capture, use a different new file:
+For a **local test** of the marker-free capture, use a different new file:
 
 ```sh
 pnpm capture:preview --mode clean --output /absolute/private/directory/clean.html
@@ -72,7 +72,7 @@ until submission, public-copy verification and confirmation that the reviewer ha
 seen the page are complete.** The course rejected closure based only on submission;
 the original preview worker owns #6's final state and closing comment.
 
-### Later replacement: separate approval required
+### Marker-free replacement: separate approval required
 
 Leave the marked page in place until review responds. Obtain a new explicit human
 approval for marker-free replacement. Only then dispatch the same workflow with
@@ -81,20 +81,27 @@ approval, not a way to create it.
 
 For this review, the course has confirmed that the reviewer saw the marked preview,
 and the human subsequently said `approve marker-free replacement` for the existing
-Pages URL. These are completed review/approval gates, recorded with their private
-sources in KEEP.md; they are not evidence that the public page has been replaced.
-Main owns the clean dispatch and independent public verification. The cleanup
-worker prepares documentation only and does not deploy or close #6 or #7.
+Pages URL. Main then published the clean replacement in
+[successful run 45807100697](https://github.com/Sakadin/mega-s01e04-rig/actions/runs/45807100697).
+Main and the cleanup worker independently fetched the unchanged URL anonymously:
+HTTP 200, exact local/public byte match (2206 bytes), original marker absent and
+`no marker set` present. The five jobs, one bad line and both warnings remain, with
+no client scripts. The run's clean capture succeeded, marked capture was skipped
+and zero artifacts remain. The original preview worker closed #6 after review was
+confirmed, preserving its original closing comment; see [the follow-up](https://github.com/Sakadin/mega-s01e04-rig/issues/6#issuecomment-7190224514).
 
 The clean capture step never receives the marker secret, forces an empty marker and
 does not load `.env`. It deploys a new `index.html` over the **same Pages root URL**.
 Verify the public banner reads `no marker set` and the old marker is absent. The
 workflow has no push-based or timed cleanup trigger. Replacing the file removes it
 from the current site, but cannot recall copies a public reader already downloaded.
-Confirm that the deployment run retains zero artifacts. Keep #7 and the
-[archived plan](plans/done/morning-digest.md) unfinished until main records the
-independent public verification; only then may main integrate the archive and mark
-the plan `done`.
+Confirm that the deployment run retains zero artifacts. The
+[archived plan](plans/done/morning-digest.md) is now `done` and records the public
+run URL and verified SHA-256. Exact worker verification output and the sourced
+review/approval history are in KEEP.md; preview HTML and the actual marker remain
+outside Git. #7 stays open until main integrates and pushes the final archive commit,
+then records its required closing comment. The cleanup worker has not deployed,
+pushed or changed any issue state.
 
 ## Validated action/API contracts
 
