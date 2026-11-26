@@ -57,9 +57,22 @@ found: python3 at /usr/bin/python3
 - Issue #6 phase 1 passes 71 tests and typecheck, and its workflow parses with manual-only, default-marked, no-cache, permission and marked-only-secret checks. · source: KEEP.md:Receipts/Issue #6 phase 1 checks · how: ran
 - Local synthetic marked and clean CLI captures differ only in their banner, and no HTML or marker values appear in their logs; those local captures were removed without uploading. · source: KEEP.md:Receipts/Issue #6 phase 1 local capture · how: ran
 - A local SIGTERM cancellation test with a deliberately stopped capture server exercised the SIGKILL fallback and left no server, capture workspace or preview. · source: KEEP.md:Receipts/Issue #6 phase 1 cancellation · how: ran
-- Issue #6 remains open for main to integrate, deploy the approved marked preview, verify its public copy and submit the link and plan issues to the reviewer; this worker must not push, deploy or close it. · source: human · how: told
+- The initial reviewer submission was accepted as progress, not as a solve; the marked page must remain unchanged pending review and separate replacement approval. · source: ../claim-01-reply.json:4-6; human · how: read
+
+- The initial marked preview was deployed to the approved GitHub Pages URL, anonymously verified byte-for-byte against the local HTTP capture, and its temporary deployment artifact deleted. · source: KEEP.md:Receipts/Initial public preview · how: ran
 
 ## Receipts
+
+### Initial public preview
+
+from: independent anonymous HTTPS capture comparison and deployment artifact check, exact stdout
+
+```
+Public HTTPS preview verified: https://sakadin.github.io/mega-s01e04-rig/
+HTTP 200; exact local/public byte match (2202 bytes); five jobs, one bad line, required warnings and lane banner present; no client scripts.
+SHA-256: 303e424bdeecbcc3a3e38c13fffd35aa93f2a76441b7e0a0c33dd4704a02ebff
+The deployment run has zero retained artifacts.
+```
 
 from: gh repo create Sakadin/mega-s01e04-rig --template MEGA-DOT-DEV/rig-handover --public --clone
 
