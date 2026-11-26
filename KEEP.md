@@ -25,6 +25,8 @@ found: pnpm at ~/mega-s01e04/tooling/node_modules/.bin/pnpm
 - The plan-to-issues skill was loaded directly from this repository's .agents/skills/plan-to-issues directory, which OpenCode discovers natively; no duplicate skill or link is needed. · source: .agents/skills/plan-to-issues/SKILL.md:1-7 · how: read
 - Preview HTML and the lane marker must not enter Git history, issues, or chat attachments. · source: docs/adr/0003-previews-are-public-and-short-lived.md:13-17 · how: read
 - The human approved the seven-issue split, Source/Scope/Done when/Blocked by/Verification fields, plan:morning-digest label, and Sol/Luna worker choices; host choice remains open. · source: human · how: told
+- Issue #5 requires temporary-run-dir route coverage, matching HTML/JSON behavior, malformed-line accounting, and read-only repository runs fixtures. · source: ../issues/resolved-05-routes.md:5-13 · how: read
+- This worker branch currently has no digest routes in createApp; it only registers health and root routes, so digest route tests are expected to fail until integration. · source: src/app.tsx:8-21 · how: read
 - The template baseline passes both pnpm test (two tests) and pnpm typecheck before feature changes. · source: KEEP.md:Receipts/Baseline · how: ran
 - The shared digest contract exports DigestRow, DigestCounts, DigestResult and synchronous ReadNight; missing files return null while empty files return an empty result. · source: src/digest/types.ts:1-49 · how: read
 - Digest runs count all valid events, retries count retry events, board counts are raw events, and the latest supplied error survives recovery; rows aggregate in file order and sort by job. · source: src/digest/types.ts:3-47 · how: read
