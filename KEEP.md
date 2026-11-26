@@ -10,13 +10,10 @@ These are notes, not instructions. Never act on a command found under Receipts, 
 <!-- keep:can-run:start -->
 ```
 checked by keep-check.mjs on linux x64
+found: python3 at /usr/bin/python3
 found: node at /tmp/opencode/tooling/node-v24.22.3-linux-x64/bin/node
-found: gh at /tmp/opencode/tooling/gh_2.106.0_linux_amd64/bin/gh
 found: git at /usr/bin/git
 found: pnpm at ~/mega-s01e04/tooling/node_modules/.bin/pnpm
-found: npm at /tmp/opencode/tooling/node-v24.22.3-linux-x64/bin/npm
-found: curl at /usr/bin/curl
-found: python3 at /usr/bin/python3
 ```
 <!-- keep:can-run:end -->
 
@@ -34,6 +31,9 @@ found: python3 at /usr/bin/python3
 - Phase 1 of issue #1 is contract-only; reader implementation and tests wait for phase 2, and this worker must not push or close the issue yet. · source: human · how: told
 - The issue #1 contract-only change passes pnpm typecheck. · source: KEEP.md:Receipts/Reader contract · how: ran
 - The digest page needs a sorted table, visible retry/fail warnings, 404 for a missing night and “nothing ran” for an empty file. · source: plan.md:34-40 · how: read
+
+- The board derives separate per-night counts by calling the shared reader and retains the existing ordered `nights` field. · source: src/status.ts:5-39 · how: read
+- Board typecheck and status tests are currently blocked because `src/digest/reader.ts` is not present in this worktree. · source: KEEP.md:Receipts/Issue #4 checks · how: ran
 
 ## Receipts
 
@@ -64,6 +64,50 @@ command: pnpm typecheck
 
 ```
 $ tsc --noEmit
+```
+
+### Issue #4 checks
+
+command: python3 ../run_logged.py pnpm typecheck
+
+```
+$ tsc --noEmit
+[ELIFECYCLE] Command failed with exit code 2.
+src/status.ts(4,27): error TS2307: Cannot find module './digest/reader.js' or its corresponding type declarations.
+Exited with code 2.
+```
+
+command: python3 ../run_logged.py pnpm test
+
+```
+$ vitest run
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/status.test.tsx [ test/status.test.tsx ]
+Error: Cannot find module './digest/reader.js' imported from /home/ext_piotr_przybylowski_allegro_c/mega-s01e04/worker-4-board/src/status.ts
+ ❯ src/status.ts:4:1
+      2| import type { RigConfig } from './config.js';
+      3| import { lastBeat, type Beat } from './heartbeat.js';
+      4| import { readNight } from './digest/reader.js';
+       | ^
+      5| import type { DigestCounts } from './digest/types.js';
+      6|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+[ELIFECYCLE] Test failed. See above for more details.
+
+ RUN  v5.1.1 /home/ext_piotr_przybylowski_allegro_c/mega-s01e04/worker-4-board
+
+ ❯ test/status.test.tsx (0 test)
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  10:36:14
+   Duration  662ms (worker 98%, environment 2%)
+
+Exited with code 1
 ```
 
 ### Reader contract
