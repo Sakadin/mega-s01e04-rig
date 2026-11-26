@@ -24,19 +24,19 @@ found: python3 at /usr/bin/python3
 
 - This repository was created for S01E04 from MEGA-DOT-DEV/rig-handover with the human's approval. · source: human · how: told
 - The human approved project dependency installation and adding the KEEP reading rule to AGENTS.md. · source: human · how: told
-- The plan requires separate workers for the reader, page, JSON, board links, route tests, preview, and cleanup; the page parts can start after the reader type contract is committed. · source: plan.md:16-79 · how: read
+- The plan requires separate workers for the reader, page, JSON, board links, route tests, preview, and cleanup; the page parts can start after the reader type contract is committed. · source: docs/plans/done/morning-digest.md:16-79 · how: read
 - The plan-to-issues skill was loaded directly from this repository's .agents/skills/plan-to-issues directory, which OpenCode discovers natively; no duplicate skill or link is needed. · source: .agents/skills/plan-to-issues/SKILL.md:1-7 · how: read
 - Preview HTML and the lane marker must not enter Git history, issues, or chat attachments. · source: docs/adr/0003-previews-are-public-and-short-lived.md:13-17 · how: read
 - The human approved the seven-issue split, Source/Scope/Done when/Blocked by/Verification fields, plan:morning-digest label, and Sol/Luna worker choices. · source: human · how: told
 - The human approved GitHub Pages, the marker's Actions secret, a deployment workflow, the initial public sample-page upload, and deletion of its temporary artifact. · source: human · how: told
-- Issue #5 requires temporary-run-dir route coverage, matching HTML/JSON behavior, malformed-line accounting, and read-only repository runs fixtures. · source: plan.md:56-61 · how: read
+- Issue #5 requires temporary-run-dir route coverage, matching HTML/JSON behavior, malformed-line accounting, and read-only repository runs fixtures. · source: docs/plans/done/morning-digest.md:56-61 · how: read
 - Both digest routes now call the shared reader; HTML and JSON expose its same sorted rows without a second parser. · source: src/app.tsx:15-49 · how: read
 - The template baseline passes both pnpm test (two tests) and pnpm typecheck before feature changes. · source: KEEP.md:Receipts/Baseline · how: ran
 - The shared digest contract exports DigestRow, DigestCounts, DigestResult and synchronous ReadNight; missing files return null while empty files return an empty result. · source: src/digest/types.ts:1-49 · how: read
 - Digest runs count all valid events, retries count retry events, board counts are raw events, and the latest supplied error survives recovery; rows aggregate in file order and sort by job. · source: src/digest/types.ts:3-47 · how: read
 - The shared contract was committed before the reader implementation, allowing four section 2 workers to start independently. · source: src/digest/types.ts:1-49 · how: read
 - The issue #1 contract-only change passes pnpm typecheck. · source: KEEP.md:Receipts/Reader contract · how: ran
-- The digest page needs a sorted table, visible retry/fail warnings, 404 for a missing night and “nothing ran” for an empty file. · source: plan.md:34-40 · how: read
+- The digest page needs a sorted table, visible retry/fail warnings, 404 for a missing night and “nothing ran” for an empty file. · source: docs/plans/done/morning-digest.md:34-40 · how: read
 
 - The board derives separate per-night counts by calling the shared reader and retains the existing ordered `nights` field. · source: src/status.ts:5-39 · how: read
 - Board worker checks initially lacked the parallel reader implementation; the integrated branch now passes all tests and typecheck. · source: KEEP.md:Receipts/Issue #4 checks and Integrated verification · how: read
@@ -53,7 +53,7 @@ found: python3 at /usr/bin/python3
 - The server now binds only to 127.0.0.1 and reports the actual OS-assigned port over IPC when a capture uses PORT=0. · source: src/server.ts:11-15 · how: read
 - The Pages workflow is manual-only on the default branch, defaults to marked mode, exposes the marker secret only to the marked capture step and requires a separate approval acknowledgement for clean replacement. · source: .github/workflows/preview.yml:5-43,67-77 · how: read
 - The Pages workflow uses pinned pnpm 12.23.0, no package caches, tests and typecheck, an outside-checkout capture and exact-ID artifact deletion after successful deployment. · source: .github/workflows/preview.yml:49-106 · how: read
-- Official action contracts use upload-pages-artifact v4 output artifact_id and deploy-pages v4 output page_url; their versioned sources and the GitHub artifact-deletion API are linked in the preview guide. · source: docs/preview.md:86-103 · how: read
+- Official action contracts use upload-pages-artifact v4 output artifact_id and deploy-pages v4 output page_url; their versioned sources and the GitHub artifact-deletion API are linked in the preview guide. · source: docs/preview.md:99-116 · how: read
 - Issue #6 phase 1 passes 71 tests and typecheck, and its workflow parses with manual-only, default-marked, no-cache, permission and marked-only-secret checks. · source: KEEP.md:Receipts/Issue #6 phase 1 checks · how: ran
 - Local synthetic marked and clean CLI captures differ only in their banner, and no HTML or marker values appear in their logs; those local captures were removed without uploading. · source: KEEP.md:Receipts/Issue #6 phase 1 local capture · how: ran
 - A local SIGTERM cancellation test with a deliberately stopped capture server exercised the SIGKILL fallback and left no server, capture workspace or preview. · source: KEEP.md:Receipts/Issue #6 phase 1 cancellation · how: ran
@@ -65,8 +65,47 @@ found: python3 at /usr/bin/python3
 - Resubmission after reopening #6 was accepted as progress and sent to the reviewer again; the challenge is still not solved. · source: ../review-followup.jsonl:3 · how: read
 - The course confirms the reviewer has seen the preview and now requires separate human approval before a marker-free replacement at the same URL, plan completion and the unchanged final claim. · source: ../review-followup.jsonl:5 · how: read
 - The human explicitly approved the marker-free replacement at the existing GitHub Pages URL after the course confirmed review. · source: human · how: told
+- The explicit marker-free replacement approval names the existing URL, public visibility and undo by another deployment; main owns publication while the #7 worker prepares the archive. · source: ../session-log.md:85-87 · how: read
+- The archived plan maps all seven actual published issue URLs to their original sections and preserves the original requirements with status ready pending main's independent public cleanup verification and integration. · source: docs/plans/done/morning-digest.md:1-109; ../published-issues.json:1-37 · how: read
+- The preview guide now requires confirmation that the reviewer has seen the page before #6 can close, records review and replacement approval as completed gates, and leaves public cleanup unverified until main supplies evidence. · source: docs/preview.md:68-99; ../review-followup.jsonl:5 · how: read
+- Issue #7's documentation-only preparation passes all 71 tests and TypeScript typecheck with the archived plan still marked ready. · source: KEEP.md:Receipts/Issue #7 preparation checks; docs/plans/done/morning-digest.md:1-6 · how: ran
+- Issue #7's archive validation, original finding/receipt preservation checks, documentation-only scope check, KEEP findings checker and staged/working-tree whitespace checks pass without any deployment, push or issue-state change. · source: KEEP.md:Receipts/Issue #7 preparation checks · how: ran
 
 ## Receipts
+
+### Issue #7 preparation checks
+
+command: python3 ../run_logged.py pnpm test
+
+```
+$ vitest run
+
+ RUN  v5.1.1 /home/ext_piotr_przybylowski_allegro_c/mega-s01e04/worker-7-cleanup
+
+
+ Test Files  4 passed (4)
+      Tests  71 passed (71)
+   Start at  11:05:00
+   Duration  4.08s (tests 76%, transform 12%, import 10%, worker 2%)
+
+    Isolate  4 workers spawned · ~200ms startup each (spawn + environment, per file)
+             at least ~599ms faster with isolate: false — reuses workers across files instead of one per file
+```
+
+command: python3 ../run_logged.py pnpm typecheck
+
+```
+$ tsc --noEmit
+```
+
+from: Issue #7 local archive/KEEP/scope/whitespace validation via python3 ../run_logged.py
+
+```
+Archive validation passed: original plan preserved; all seven issue URLs mapped; status ready; local links resolve.
+KEEP validation passed: original findings and receipts preserved; plan source paths updated; findings checker silent.
+Scope validation passed: documentation/archive changes only; no production, workflow, fixture, HTML or .env changes.
+Staged and working-tree whitespace checks passed. No deployment, push or issue-state change performed.
+```
 
 ### Preview issue closure audit
 

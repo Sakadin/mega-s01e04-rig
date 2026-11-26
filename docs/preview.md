@@ -68,20 +68,33 @@ Do not treat a failed workflow as a successful preview handoff.
 Main must then fetch the public HTTPS URL anonymously, compare its body with a local
 capture, verify the sample data/banner/self-contained page, and send the reviewer the
 link plus the plan's issues. Keep the submission/reply private. **Issue #6 stays open
-until that submission and public-copy verification are complete.**
+until submission, public-copy verification and confirmation that the reviewer has
+seen the page are complete.** The course rejected closure based only on submission;
+the original preview worker owns #6's final state and closing comment.
 
 ### Later replacement: separate approval required
 
 Leave the marked page in place until review responds. Obtain a new explicit human
 approval for marker-free replacement. Only then dispatch the same workflow with
 `mode=clean` and `clean_approved=true`. This is an acknowledgement of existing human
-approval, not a way to create it. No clean deployment has been authorized by this work.
+approval, not a way to create it.
+
+For this review, the course has confirmed that the reviewer saw the marked preview,
+and the human subsequently said `approve marker-free replacement` for the existing
+Pages URL. These are completed review/approval gates, recorded with their private
+sources in KEEP.md; they are not evidence that the public page has been replaced.
+Main owns the clean dispatch and independent public verification. The cleanup
+worker prepares documentation only and does not deploy or close #6 or #7.
 
 The clean capture step never receives the marker secret, forces an empty marker and
 does not load `.env`. It deploys a new `index.html` over the **same Pages root URL**.
 Verify the public banner reads `no marker set` and the old marker is absent. The
 workflow has no push-based or timed cleanup trigger. Replacing the file removes it
 from the current site, but cannot recall copies a public reader already downloaded.
+Confirm that the deployment run retains zero artifacts. Keep #7 and the
+[archived plan](plans/done/morning-digest.md) unfinished until main records the
+independent public verification; only then may main integrate the archive and mark
+the plan `done`.
 
 ## Validated action/API contracts
 

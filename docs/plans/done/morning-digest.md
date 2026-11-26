@@ -77,3 +77,33 @@ page again with `LANE_MARKER` unset (the banner reads "no marker set") and uploa
 link. Move this plan to `docs/plans/done/` with its issue list.
 
 Done when: the preview link no longer shows the lane marker.
+
+## Issues
+
+| Section | Issue |
+| --- | --- |
+| 1. Run log reader | [#1 Read and aggregate nightly run logs](https://github.com/Sakadin/mega-s01e04-rig/issues/1) |
+| 2a. Page | [#2 Render the digest page](https://github.com/Sakadin/mega-s01e04-rig/issues/2) |
+| 2b. JSON | [#3 Serve digest JSON](https://github.com/Sakadin/mega-s01e04-rig/issues/3) |
+| 2c. Board link | [#4 Link nights from the status board](https://github.com/Sakadin/mega-s01e04-rig/issues/4) |
+| 2d. Route tests | [#5 Test digest routes](https://github.com/Sakadin/mega-s01e04-rig/issues/5) |
+| 3. Preview for review | [#6 Publish and send the review preview](https://github.com/Sakadin/mega-s01e04-rig/issues/6) |
+| 4. Clean up | [#7 Remove the marker and archive the plan](https://github.com/Sakadin/mega-s01e04-rig/issues/7) |
+
+## Completion gate
+
+This archive is prepared on the cleanup worker branch; its location does not mean
+the plan is finished. The original requirements above are preserved, and `status`
+remains `ready` until main independently verifies public cleanup and integrates
+the archive. Submission alone did not satisfy the review gate for #6; the course
+required the reviewer to have seen the page. See [the preview guide](../../preview.md)
+and the sourced review/approval findings in [KEEP.md](../../../KEEP.md).
+
+- [x] The course confirmed that the reviewer has seen the marked preview.
+- [x] The human separately approved a marker-free replacement at the existing URL.
+- [ ] Main publishes the clean replacement at that same URL and independently
+  verifies an anonymous HTTPS response has `no marker set`, no lane marker and the
+  unchanged sample digest; the deployment run retains zero artifacts.
+- [ ] Main records the verification evidence, integrates this archive and changes
+  `status` to `done` only after the public gate holds. #7 stays open until its full
+  Done when holds; #6 remains the original preview worker's responsibility.
