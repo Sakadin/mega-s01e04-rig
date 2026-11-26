@@ -37,6 +37,14 @@ found: pnpm at ~/mega-s01e04/tooling/node_modules/.bin/pnpm
 - The board derives separate per-night counts by calling the shared reader and retains the existing ordered `nights` field. · source: src/status.ts:5-39 · how: read
 - Board typecheck and status tests are currently blocked because `src/digest/reader.ts` is not present in this worktree. · source: KEEP.md:Receipts/Issue #4 checks · how: ran
 
+- Issue #1 phase 2 supersedes the contract-only pause: reader implementation and reader tests are authorized, but pushing and closing issue #1 still wait for integration and confirmation. · source: human · how: told
+- Issue #1 phase 2: the reader exports synchronous readNight with the shared ReadNight type; non-YYYY-MM-DD names throw RangeError before file access, only ENOENT returns null, and other read errors propagate. · source: src/digest/reader.ts:40-52 · how: read
+- Issue #1 phase 2: the reader validates JSON and event field types, skips malformed records with one badLines increment each, counts real blank lines, and does not count a terminal newline as another record. · source: src/digest/reader.ts:13-65 · how: read
+- Issue #1 phase 2: the reader aggregates valid events in file order, preserves original timestamp strings and the latest supplied error, counts raw status events, and sorts job rows in ascending string order. · source: src/digest/reader.ts:67-91 · how: read
+- Issue #1 phase 2: reader fixture expectations cover five sorted jobs, one bad line and event counts of 10 ok, 4 retry and 1 fail for 2026-10-28; the other fixture has four jobs and seven ok events. · source: test/digest-reader.test.ts:30-73 · how: read
+- Issue #1 phase 2: all 57 focused reader tests pass, including malformed input, offsets, retained errors, missing/empty files, propagated permission errors and filename traversal rejection. · source: KEEP.md:Receipts/Issue #1 focused reader tests · how: ran
+- Issue #1 phase 2: the worker-1-reader full suite passes all 59 tests and TypeScript typecheck passes after reader implementation. · source: KEEP.md:Receipts/Issue #1 regression checks · how: ran
+
 ## Receipts
 
 from: gh repo create Sakadin/mega-s01e04-rig --template MEGA-DOT-DEV/rig-handover --public --clone
@@ -115,6 +123,44 @@ Exited with code 1
 ### Reader contract
 
 command: pnpm typecheck
+
+```
+$ tsc --noEmit
+```
+
+### Issue #1 focused reader tests
+
+command: TMPDIR=/tmp/opencode python3 ../run_logged.py pnpm test test/digest-reader.test.ts
+
+```
+$ vitest run test/digest-reader.test.ts
+
+ RUN  v5.1.1 /home/ext_piotr_przybylowski_allegro_c/mega-s01e04/worker-1-reader
+
+
+ Test Files  1 passed (1)
+      Tests  57 passed (57)
+   Start at  10:37:56
+   Duration  739ms (transform 53%, import 21%, tests 21%, worker 5%)
+```
+
+### Issue #1 regression checks
+
+command: TMPDIR=/tmp/opencode python3 ../run_logged.py pnpm test
+
+```
+$ vitest run
+
+ RUN  v5.1.1 /home/ext_piotr_przybylowski_allegro_c/mega-s01e04/worker-1-reader
+
+
+ Test Files  2 passed (2)
+      Tests  59 passed (59)
+   Start at  10:38:12
+   Duration  528ms (transform 34%, tests 32%, import 29%, worker 4%)
+```
+
+command: python3 ../run_logged.py pnpm typecheck
 
 ```
 $ tsc --noEmit
