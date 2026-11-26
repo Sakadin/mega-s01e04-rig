@@ -99,9 +99,9 @@ Confirm that the deployment run retains zero artifacts. The
 [archived plan](plans/done/morning-digest.md) is now `done` and records the public
 run URL and verified SHA-256. Exact worker verification output and the sourced
 review/approval history are in KEEP.md; preview HTML and the actual marker remain
-outside Git. #7 stays open until main integrates and pushes the final archive commit,
-then records its required closing comment. The cleanup worker has not deployed,
-pushed or changed any issue state.
+outside Git. After main integrated and pushed the final archive commit, the cleanup
+worker posted [the required closing comment](https://github.com/Sakadin/mega-s01e04-rig/issues/7#issuecomment-7190384762)
+and closed #7. The course then accepted the unchanged final answer as solved.
 
 ## Validated action/API contracts
 

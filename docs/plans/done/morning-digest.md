@@ -118,6 +118,7 @@ verification output in [KEEP.md](../../../KEEP.md).
 Submission alone did not satisfy #6's review gate. The original preview worker
 closed it only after the reviewer-seen confirmation and preserved its original
 closing comment; see [the review-gate follow-up](https://github.com/Sakadin/mega-s01e04-rig/issues/6#issuecomment-7190224514).
-#7 remains open until this final archive commit is integrated and published on main,
-then receives the required closing comment. Final course acceptance is not a
-prerequisite for marking the plan done.
+The cleanup worker closed #7 after its final archive commit was integrated and
+published on main; see [the closing comment](https://github.com/Sakadin/mega-s01e04-rig/issues/7#issuecomment-7190384762).
+The course subsequently accepted the unchanged answer as solved, and the
+[debrief is saved](https://hq.mega.dev/challenges/before-i-looked#debrief).

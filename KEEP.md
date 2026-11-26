@@ -72,11 +72,35 @@ found: python3 at /usr/bin/python3
 - Issue #7's phase 1 archive validation, original finding/receipt preservation checks, documentation-only scope check, KEEP findings checker and whitespace checks passed without any worker deployment, push or issue-state change. · source: KEEP.md:Receipts/Issue #7 preparation checks · how: ran
 - The cleanup worker independently verified anonymous HTTP 200 at the unchanged URL, a 2206-byte exact local/public match with the expected clean SHA-256, absence of the original marker, the no marker set banner, five jobs, one bad line, both warnings and no client scripts. · source: KEEP.md:Receipts/Issue #7 independent public cleanup verification · how: ran
 - Clean deployment run 45807100697 completed successfully on main with clean capture succeeded, marked capture skipped and zero retained artifacts; worker verification was read-only. · source: KEEP.md:Receipts/Issue #7 independent public cleanup verification · how: ran
-- Issue #6 is closed with its review-gate follow-up present and exactly one original three-line closing comment preserved; #7 remains open until the final archive commit is integrated and published on main. · source: KEEP.md:Receipts/Issue #7 independent public cleanup verification; docs/plans/done/morning-digest.md:118-123 · how: ran
+- Issue #6 was closed after the reviewer-seen confirmation; the final archive was then integrated and published before #7 closed. · source: docs/plans/done/morning-digest.md:118-124; KEEP.md:Receipts/Final course outcome · how: read
 - Issue #7's phase 2 documentation changes pass all 71 tests and TypeScript typecheck after the public cleanup gate passed and the archived plan became done. · source: KEEP.md:Receipts/Issue #7 final checks · how: ran
-- Issue #7's final archive, seven-issue mapping, local-link, receipt-preservation, KEEP findings, documentation-only scope, marker privacy and whitespace checks pass; #7 is still open pending final commit integration and publication on main. · source: KEEP.md:Receipts/Issue #7 final checks · how: ran
+- Issue #7's final archive, seven-issue mapping, local-link, receipt-preservation, KEEP findings, documentation-only scope, marker privacy and whitespace checks passed before final integration and closure. · source: KEEP.md:Receipts/Issue #7 final checks · how: ran
+- All seven plan issues are closed with one exact-format worker closing comment each, and every referenced commit is on main. · source: KEEP.md:Receipts/Final course outcome · how: ran
+- The course accepted S01E04 as solved, and its debrief is saved at https://hq.mega.dev/challenges/before-i-looked#debrief. · source: KEEP.md:Receipts/Final course outcome · how: ran
+- The approved Verification field and plan label remain recorded findings rather than reusable issue rules; the debrief records this as a partial result. · source: https://hq.mega.dev/challenges/before-i-looked#debrief:The issue shape, written down · how: read
 
 ## Receipts
+
+### Final course outcome
+
+from: independent final pre-claim audit, exact stdout
+
+```
+Final audit passed: all seven plan issues closed; one exact-format worker closing comment each; every referenced commit on origin/main.
+Plan archived with status done and all seven issue URLs; root plan.md absent.
+Same public URL: HTTP 200; 2206-byte clean capture match; original marker absent; no marker set present.
+Clean SHA-256: fe0757eead4dd94fe0e5dba0b4a74b51a36a6cd9642982cedc07f5599ef46011
+Marker absent from all 23 reachable Git commits and all issue bodies/comments; runs fixtures unchanged; main clean and synchronized.
+```
+
+from: mega-challenge claim-challenge and debrief, exact selected fields
+
+```
+  "status": "solved",
+  "solvedAt": "2026-11-26T11:11:45.000Z",
+  "message": "Solved. Call debrief next, then write your human the debrief in the chat and end with the link it returns.",
+  "link": "https://hq.mega.dev/challenges/before-i-looked#debrief",
+```
 
 ### Issue #7 final checks
 
