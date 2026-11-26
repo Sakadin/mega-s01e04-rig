@@ -29,15 +29,20 @@ function stripTags(value: string): string {
   return value.replace(/<[^>]*>/g, '').replace(/&mdash;/g, '—').trim();
 }
 
-function tableFrom(html: string): { headers: string[]; rows: string[][] } {
+function tableFrom(html: string): { headers: string[]; rows: string[][]; classes: string[][] } {
   const table = html.match(/<table\b[^>]*>([\s\S]*?)<\/table>/i)?.[1];
   if (!table) throw new Error('digest page did not contain a table');
   const rowMarkup = [...table.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)].map((match) => match[1]);
   const cells = (row: string, tag: 'th' | 'td') =>
     [...row.matchAll(new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'gi'))].map((match) => stripTags(match[1]));
+  const classes = (row: string) =>
+    [...row.matchAll(/<td\b([^>]*)>[\s\S]*?<\/td>/gi)].map((match) =>
+      match[1].match(/\bclass="([^"]*)"/)?.[1] ?? '',
+    );
   return {
     headers: cells(rowMarkup[0] ?? '', 'th'),
     rows: rowMarkup.slice(1).map((row) => cells(row, 'td')),
+    classes: rowMarkup.slice(1).map(classes),
   };
 }
 
@@ -52,6 +57,8 @@ describe('digest routes', () => {
         JSON.stringify({ at: '2026-10-28T09:02:00+02:00', job: 'alpha', status: 'retry', owner: 'Ada', error: 'first retry' }),
         JSON.stringify({ at: '2026-10-28T09:03:00+02:00', job: 'alpha', status: 'retry', owner: 'Ada', error: 'latest retry' }),
         JSON.stringify({ at: '2026-10-28T09:04:00+02:00', job: 'alpha', status: 'fail', owner: 'Ada', error: 'final failure' }),
+        JSON.stringify({ at: '2026-10-28T09:06:00+02:00', job: 'beta', status: 'retry', owner: 'Bea' }),
+        JSON.stringify({ at: '2026-10-28T09:07:00+02:00', job: 'beta', status: 'retry', owner: 'Bea' }),
         JSON.stringify({ at: '2026-10-28T09:05:00-07:00', job: 'zeta', status: 'fail', owner: null, error: 'zeta failure' }),
       ].join('\n') + '\n',
     );
@@ -68,14 +75,15 @@ describe('digest routes', () => {
     const result = await jsonResponse.json();
     expect(Object.keys(result).sort()).toEqual(['badLines', 'counts', 'rows']);
     expect(result.badLines).toBe(0);
-    expect(result.counts).toEqual({ ok: 1, retry: 3, fail: 2 });
-    expect(result.rows.map((row: { job: string }) => row.job)).toEqual(['alpha', 'zeta']);
-    expect(result.rows.map((row: { runs: number }) => row.runs).reduce((a: number, b: number) => a + b, 0)).toBe(6);
+    expect(result.counts).toEqual({ ok: 1, retry: 5, fail: 2 });
+    expect(result.rows.map((row: { job: string }) => row.job)).toEqual(['alpha', 'beta', 'zeta']);
+    expect(result.rows.map((row: { runs: number }) => row.runs).reduce((a: number, b: number) => a + b, 0)).toBe(8);
+    expect(result.counts.ok + result.counts.retry + result.counts.fail).toBe(8);
     expect(result.rows.map((row: { retries: number }) => row.retries).reduce((a: number, b: number) => a + b, 0)).toBe(result.counts.retry);
     expect(result.rows[0]).toMatchObject({ retries: 3, lastStatus: 'fail', lastError: 'final failure' });
     expect(result.rows[0].firstAt).toBe('2026-10-28T09:01:00+02:00');
     expect(result.rows[0].lastAt).toBe('2026-10-28T09:04:00+02:00');
-    expect(result.rows[1]).toMatchObject({ owner: null, lastStatus: 'fail' });
+    expect(result.rows[2]).toMatchObject({ owner: null, lastStatus: 'fail' });
 
     const table = tableFrom(html);
     expect(table.headers).toEqual([
@@ -83,16 +91,24 @@ describe('digest routes', () => {
     ]);
     expect(table.rows.map((row) => row[0])).toEqual(result.rows.map((row: { job: string }) => row.job));
     expect(table.rows[0]).toEqual([
-      'alpha', 'Ada', '4', '3', 'fail', 'final failure',
+      'alpha', 'Ada', '4', '3 ⚠', 'fail ⚠', 'final failure',
       '2026-10-28T09:01:00+02:00', '2026-10-28T09:04:00+02:00',
     ]);
     expect(table.rows[1]).toEqual([
-      'zeta', '—', '2', '0', 'fail', 'zeta failure',
+      'beta', 'Bea', '2', '2', 'retry', '—',
+      '2026-10-28T09:06:00+02:00', '2026-10-28T09:07:00+02:00',
+    ]);
+    expect(table.rows[2]).toEqual([
+      'zeta', '—', '2', '0', 'fail ⚠', 'zeta failure',
       '2026-10-28T09:00:00-07:00', '2026-10-28T09:05:00-07:00',
     ]);
-    expect(table.rows[0][3]).toBe('3');
-    expect(table.rows.every((row) => row[4] === 'fail')).toBe(true);
-    expect(result.rows[1].owner).toBeNull();
+    expect(table.classes[0][3]).toBe('warn');
+    expect(table.classes[0][4]).toBe('warn');
+    expect(table.classes[1][3]).toBe('');
+    expect(table.classes[1][4]).toBe('');
+    expect(table.classes[2][3]).toBe('');
+    expect(table.classes[2][4]).toBe('warn');
+    expect(result.rows[2].owner).toBeNull();
   });
 
   it('returns 404 from both routes when the night file is missing', async () => {
@@ -139,6 +155,7 @@ describe('digest routes', () => {
     expect(jsonResponse.status).toBe(200);
     const html = await htmlResponse.text();
     const result = await jsonResponse.json();
+    expect(html).toContain('bad lines: 3');
     expect(result.badLines).toBe(3);
     expect(result.rows.map((row: { job: string }) => row.job)).toEqual(['valid']);
     expect(result.counts).toEqual({ ok: 1, retry: 0, fail: 0 });
