@@ -33,6 +33,7 @@ found: python3 at /usr/bin/python3
 - Digest runs count all valid events, retries count retry events, board counts are raw events, and the latest supplied error survives recovery; rows aggregate in file order and sort by job. · source: src/digest/types.ts:3-47 · how: read
 - Phase 1 of issue #1 is contract-only; reader implementation and tests wait for phase 2, and this worker must not push or close the issue yet. · source: human · how: told
 - The issue #1 contract-only change passes pnpm typecheck. · source: KEEP.md:Receipts/Reader contract · how: ran
+- The digest page needs a sorted table, visible retry/fail warnings, 404 for a missing night and “nothing ran” for an empty file. · source: plan.md:34-40 · how: read
 
 ## Receipts
 
