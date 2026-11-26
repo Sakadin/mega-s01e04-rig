@@ -29,6 +29,10 @@ found: python3 at /usr/bin/python3
 - Preview HTML and the lane marker must not enter Git history, issues, or chat attachments. · source: docs/adr/0003-previews-are-public-and-short-lived.md:13-17 · how: read
 - The human approved the seven-issue split, Source/Scope/Done when/Blocked by/Verification fields, plan:morning-digest label, and Sol/Luna worker choices; host choice remains open. · source: human · how: told
 - The template baseline passes both pnpm test (two tests) and pnpm typecheck before feature changes. · source: KEEP.md:Receipts/Baseline · how: ran
+- The shared digest contract exports DigestRow, DigestCounts, DigestResult and synchronous ReadNight; missing files return null while empty files return an empty result. · source: src/digest/types.ts:1-49 · how: read
+- Digest runs count all valid events, retries count retry events, board counts are raw events, and the latest supplied error survives recovery; rows aggregate in file order and sort by job. · source: src/digest/types.ts:3-47 · how: read
+- Phase 1 of issue #1 is contract-only; reader implementation and tests wait for phase 2, and this worker must not push or close the issue yet. · source: human · how: told
+- The issue #1 contract-only change passes pnpm typecheck. · source: KEEP.md:Receipts/Reader contract · how: ran
 
 ## Receipts
 
@@ -54,6 +58,14 @@ $ vitest run
    Start at  10:28:29
    Duration  622ms (transform 42%, tests 27%, import 27%, worker 3%)
 ```
+
+command: pnpm typecheck
+
+```
+$ tsc --noEmit
+```
+
+### Reader contract
 
 command: pnpm typecheck
 
