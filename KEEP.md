@@ -28,7 +28,7 @@ found: python3 at /usr/bin/python3
 - The plan-to-issues skill was loaded directly from this repository's .agents/skills/plan-to-issues directory, which OpenCode discovers natively; no duplicate skill or link is needed. · source: .agents/skills/plan-to-issues/SKILL.md:1-7 · how: read
 - Preview HTML and the lane marker must not enter Git history, issues, or chat attachments. · source: docs/adr/0003-previews-are-public-and-short-lived.md:13-17 · how: read
 - The human approved the seven-issue split, Source/Scope/Done when/Blocked by/Verification fields, plan:morning-digest label, and Sol/Luna worker choices. · source: human · how: told
-- The human approved GitHub Pages, the marker's Actions secret, a deployment workflow, the initial public sample-page upload, and deletion of its temporary artifact; marker-free replacement is not approved yet. · source: human · how: told
+- The human approved GitHub Pages, the marker's Actions secret, a deployment workflow, the initial public sample-page upload, and deletion of its temporary artifact. · source: human · how: told
 - Issue #5 requires temporary-run-dir route coverage, matching HTML/JSON behavior, malformed-line accounting, and read-only repository runs fixtures. · source: plan.md:56-61 · how: read
 - Both digest routes now call the shared reader; HTML and JSON expose its same sorted rows without a second parser. · source: src/app.tsx:15-49 · how: read
 - The template baseline passes both pnpm test (two tests) and pnpm typecheck before feature changes. · source: KEEP.md:Receipts/Baseline · how: ran
@@ -63,6 +63,8 @@ found: python3 at /usr/bin/python3
 - The pre-review audit found six closed issues, but the course subsequently rejected the preview because #6 was closed before review; that closure was premature. · source: KEEP.md:Receipts/Preview issue closure audit; ../review-followup.jsonl:2 · how: read
 - The preview worker reopened #6, preserved its original closing comment and verified the marked public page was unchanged; #6 must remain open until explicit review acceptance. · source: ../worker-6-preview/KEEP.md:67-68,307-326 · how: read
 - Resubmission after reopening #6 was accepted as progress and sent to the reviewer again; the challenge is still not solved. · source: ../review-followup.jsonl:3 · how: read
+- The course confirms the reviewer has seen the preview and now requires separate human approval before a marker-free replacement at the same URL, plan completion and the unchanged final claim. · source: ../review-followup.jsonl:5 · how: read
+- The human explicitly approved the marker-free replacement at the existing GitHub Pages URL after the course confirmed review. · source: human · how: told
 
 ## Receipts
 
